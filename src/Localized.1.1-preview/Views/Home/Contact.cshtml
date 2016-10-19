@@ -1,0 +1,44 @@
+﻿@using Localized._1._1_preview.Models
+@model Model
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<h2>@ViewData["Title"].</h2>
+<h3>@ViewData["Message"]</h3>
+
+<address>
+    One Microsoft Way<br />
+    Redmond, WA 98052-6399<br />
+    <abbr title="Phone">P:</abbr>
+    425.555.0100
+</address>
+
+<address>
+    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
+    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+</address>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Id" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Id" />
+            <span asp-validation-for="Id"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+    </div>
+
+    <div class="col-md-offset-2 col-md-10 form-group">
+        <button type="submit" class="btn btn-default">Register</button>
+    </div>
+</form>
