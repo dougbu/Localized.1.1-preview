@@ -34,16 +34,14 @@ namespace Localized._1._1_preview
             services.AddTransient<IConfigureOptions<MvcOptions>, MvcOptionsSetup>();
 
             // Add framework services.
-            // Setting ResourcesPath only to confirm [ResourceLocation] wins. No resources in this directory.
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
-
             // Embedded provider for views in the class library.
+            // Setting ResourcesPath only to confirm [ResourceLocation] wins. No resources in this directory.
             var embeddedProvider = new EmbeddedFileProvider(typeof(Model).GetTypeInfo().Assembly);
             services
                 .AddMvc()
                 .AddDataAnnotationsLocalization()
                 .AddRazorOptions(options => options.FileProviders.Add(embeddedProvider))
-                .AddViewLocalization();
+                .AddViewLocalization(options => options.ResourcesPath = "Resources");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
