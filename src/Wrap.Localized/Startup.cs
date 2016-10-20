@@ -4,6 +4,7 @@ using Localized._1._1_preview.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -32,6 +33,7 @@ namespace Wrap.Localized
         {
             // Setup a bit more localization.
             services.AddTransient<IConfigureOptions<MvcOptions>, MvcOptionsSetup>();
+            //services.AddTransient<IConfigureOptions<MvcOptions>, MvcOptionsSetup2>();
 
             // Add framework services.
             // Embedded provider for views in the class library.
@@ -81,6 +83,43 @@ namespace Wrap.Localized
             private readonly IStringLocalizer<Model> _localizer;
 
             public MvcOptionsSetup(IStringLocalizer<Model> localizer)
+            {
+                _localizer = localizer;
+            }
+
+            public void Configure(MvcOptions options)
+            {
+                options.ModelMetadataDetailsProviders.Add(new BindingMetadataProvider(_localizer));
+            }
+        }
+
+        private class BindingMetadataProvider : IBindingMetadataProvider
+        {
+            private readonly IStringLocalizer<Model> _localizer;
+
+            public BindingMetadataProvider(IStringLocalizer<Model> localizer)
+            {
+                _localizer = localizer;
+            }
+
+            public void CreateBindingMetadata(BindingMetadataProviderContext context)
+            {
+                if (context.Key.MetadataKind != ModelMetadataKind.Property ||
+                    !context.Key.ModelType.GetTypeInfo().IsValueType)
+                {
+                    return;
+                }
+
+                context.BindingMetadata.ModelBindingMessageProvider.ValueMustNotBeNullAccessor =
+                    _ => _localizer["{0} is totally, completely required.", context.Key.Name];
+            }
+        }
+
+        private class MvcOptionsSetup2 : IConfigureOptions<MvcOptions>
+        {
+            private readonly IStringLocalizer<Model> _localizer;
+
+            public MvcOptionsSetup2(IStringLocalizer<Model> localizer)
             {
                 _localizer = localizer;
             }
