@@ -123,6 +123,9 @@
   <data name="{0} must be longer than {1} characters." xml:space="preserve">
     <value>{0}必须大于{1}个字符。</value>
   </data>
+  <data name="{0} must be longer than 4 (four) characters." xml:space="preserve">
+    <value>{0}必须大于4（四）个字符。</value>
+  </data>
   <data name="Value '{0}' appears to be null and that's not valid." xml:space="preserve">
     <value>值“{0}”似乎为空，且无效。</value>
   </data>
