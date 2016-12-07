@@ -31,10 +31,6 @@ namespace Localized._1._1_preview
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Setup a bit more localization.
-            services.AddTransient<IConfigureOptions<MvcOptions>, MvcOptionsSetup>();
-            //services.AddTransient<IConfigureOptions<MvcOptions>, MvcOptionsSetup2>();
-
             // Add framework services.
             // Embedded provider for views in the class library.
             // Setting ResourcesPath only to confirm [ResourceLocation] wins. No resources in this directory.
@@ -44,6 +40,10 @@ namespace Localized._1._1_preview
                 .AddDataAnnotationsLocalization()
                 .AddRazorOptions(options => options.FileProviders.Add(embeddedProvider))
                 .AddViewLocalization(options => options.ResourcesPath = "Resources");
+
+            // Setup a bit more localization. Do after AddMvc() to ensure ModelMetadataDetailsProviders is initialized.
+            services.AddTransient<IConfigureOptions<MvcOptions>, MvcOptionsSetup>();
+            services.AddTransient<IConfigureOptions<MvcOptions>, MvcOptionsSetup2>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

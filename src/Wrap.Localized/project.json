@@ -7,7 +7,7 @@
     "Localized.1.1-preview": "1.0.0-*",
     "Microsoft.NETCore.App": {
       "type": "platform",
-      "version": "1.1.0"
+      "version": "1.0.3"
     }
   },
   "frameworks": {
@@ -30,8 +30,8 @@
     "prepublish": [ "bower install", "dotnet bundle" ]
   },
   "tools": {
-    "BundlerMinifier.Core": "2.2.301",
-    "Microsoft.AspNetCore.Razor.Tools": "1.1.0-preview4-final",
+    "BundlerMinifier.Core": "2.2.306",
+    "Microsoft.AspNetCore.Razor.Tools": "1.0.0-preview4-final",
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview4-final"
   }
 }
